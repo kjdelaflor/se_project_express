@@ -12,19 +12,15 @@ const clothingItemSchema = new mongoose.Schema({
   weather: {
     type: String,
     required: true,
-    enum: ["hot", "warm", "cold"],
   },
-
-  imageUrl: {
+  imageURL: {
     type: String,
     required: true,
     validate: {
-      validator(value) {
-        return validator.isURL(value);
-      },
-      message: "You must enter a valid URL",
+      validator: (v) => validator.isURL(v),
+      message: "Link is not Valid",
     },
   },
 });
 
-module.exports = mongoose.model("item", clothingItemSchema);
+module.exports = mongoose.model("clothingItems", clothingItemSchema);
