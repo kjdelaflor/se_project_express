@@ -4,8 +4,9 @@ const addItem = (req, res) => {
   console.log(req);
   console.log(req.body);
   const { name, weather, imageURL } = req.body;
+  const owner = req.user._id;
 
-  ClothingItem.create({ name, weather, imageURL })
+  ClothingItem.create({ name, weather, imageURL, owner })
     .then((item) => {
       console.log(item);
       res.send({ data: item });
@@ -47,9 +48,27 @@ const deleteItem = (req, res) => {
     });
 };
 
+const likeItem = (req, res) => {
+  ClothingItem.findByIdAndUpdate(
+    req.params,
+    itemId,
+    { $addToSet: { likes: req.user._id } },
+    { new: true }
+  );
+
+  console.log(itemId);
+  ClothingItem.findByIdAndDelete(itemId)
+    .orFail()
+    .then((item) => res.status(204).send({}))
+    .catch((e) => {
+      res.status(500).send({ message: "Error from deleteItem", e });
+    });
+};
+
 module.exports = {
   addItem,
   getItem,
   updateItem,
   deleteItem,
+  likeItem,
 };
