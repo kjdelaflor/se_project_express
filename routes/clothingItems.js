@@ -19,7 +19,7 @@ router.get("/", getItem);
 
 //update
 
-router.put("/:itemId", updateItem);
+/*router.put("/:itemId", updateItem); */
 //delete
 
 router.delete("/:itemId", deleteItem);

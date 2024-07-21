@@ -13,10 +13,10 @@ const {
 const addItem = (req, res) => {
   console.log(req);
   console.log(req.body);
-  const { name, weather, imageURL } = req.body;
+  const { name, weather, imageUrl } = req.body;
   const owner = req.user._id;
 
-  ClothingItem.create({ name, weather, imageURL, owner })
+  ClothingItem.create({ name, weather, imageUrl, owner })
     .then((item) => {
       console.log(item);
       res.send({ data: item });
@@ -39,18 +39,13 @@ const getItem = (req, res) => {
     .then((items) => res.status(OK).send(items))
     .catch((err) => {
       console.error(err);
-      if (err.name === "ValidationError") {
-        return res
-          .status(BAD_REQUEST)
-          .send({ message: `${messageBadRequest}from getItems` });
-      }
       return res
-        .status(INTERNAL_SERVER_ERROR)
-        .send({ message: `${messageInternalServerError} from getItems` });
+        .status(500)
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
-const updateItem = (req, res) => {
+/* const updateItem = (req, res) => {
   const { itemId } = req.params;
   const { imageURL } = req.body;
 
@@ -68,7 +63,7 @@ const updateItem = (req, res) => {
         .status(INTERNAL_SERVER_ERROR)
         .send({ message: `${messageInternalServerError} from updateItem` });
     });
-};
+}; */
 
 const deleteItem = (req, res) => {
   const { itemId } = req.params;
@@ -148,7 +143,7 @@ const dislikeItem = (req, res) =>
 module.exports = {
   addItem,
   getItem,
-  updateItem,
+  /* updateItem, */
   deleteItem,
   likeItem,
   ClothingItem,
