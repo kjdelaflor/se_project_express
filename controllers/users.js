@@ -17,7 +17,6 @@ const createUser = (req, res) => {
 
   User.create({ name, avatar })
     .then((item) => {
-      console.log(item);
       res.send({ data: item });
     })
     .catch((err) => {

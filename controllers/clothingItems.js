@@ -12,7 +12,9 @@ const {
 
 const addItem = (req, res) => {
   console.log(req);
+
   console.log(req.body);
+
   const { name, weather, imageUrl } = req.body;
   const owner = req.user._id;
 
@@ -44,26 +46,6 @@ const getItem = (req, res) => {
         .send({ message: "An error has occurred on the server." });
     });
 };
-
-/* const updateItem = (req, res) => {
-  const { itemId } = req.params;
-  const { imageURL } = req.body;
-
-  ClothingItem.findByIdAndUpdate(itemId, { $set: { imageURL } })
-    .orFail()
-    .then((item) => res.status(OK).send({ data: item }))
-    .catch((err) => {
-      console.error(err);
-      if (err.name === "ValidationError") {
-        return res
-          .status(BAD_REQUEST)
-          .send({ message: `${messageBadRequest} from updateItem` });
-      }
-      return res
-        .status(INTERNAL_SERVER_ERROR)
-        .send({ message: `${messageInternalServerError} from updateItem` });
-    });
-}; */
 
 const deleteItem = (req, res) => {
   const { itemId } = req.params;
@@ -143,7 +125,6 @@ const dislikeItem = (req, res) =>
 module.exports = {
   addItem,
   getItem,
-  /* updateItem, */
   deleteItem,
   likeItem,
   ClothingItem,
