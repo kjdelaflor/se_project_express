@@ -28,5 +28,5 @@ app.use("/", mainRouter);
 
 app.listen(PORT, () => {
   console.log(`App is listening at ${PORT}`);
-  console.log("This is working!");
+  console.log("This is finally working!");
 });
